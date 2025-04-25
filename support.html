@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Center - Travelbuddy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="src/output.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Include relevant base styles from index.html if not fully covered by output.css */
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            background-color: #f7fafc; /* Light gray background */
+        }
+        /* Styles for waves (copied from index.html) */
+        .wave { background-repeat: repeat-x; }
+        .wave1 { animation: animateWaves 8s linear infinite; }
+        .wave2 { animation: animate 8s linear infinite; }
+        .wave3 { animation: animateWaves 5s linear infinite; }
+        .wave4 { animation: animate 3s linear infinite; }
+        @keyframes animateWaves { 0% { background-position-x: 1000px; } 100% { background-position-x: 0px; } }
+        @keyframes animate { 0% { background-position-x: -1000px; } 100% { background-position-x: 0px; } }
+
+         /* Footer animation styles */
+        @keyframes footerSlideUpFadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        footer { animation: footerSlideUpFadeIn 0.8s ease-out forwards; }
+
+         /* Hamburger menu styles (copied from index.html) */
+        .mobile-menu { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: rgba(255, 255, 255, 0.98); z-index: 1000; flex-direction: column; justify-content: center; align-items: center; transition: all 0.3s ease; transform: translateY(-100%); }
+        .mobile-menu.active { transform: translateY(0); }
+        .mobile-menu a { display: block; padding: 15px 0; font-size: 1.5rem; color: #333; text-decoration: none; transition: color 0.3s; }
+        .mobile-menu a:hover { color: #FF5E00; }
+        .hamburger { display: none; cursor: pointer; z-index: 1001; }
+        .hamburger span { display: block; width: 25px; height: 3px; margin: 5px; background-color: #000; transition: all 0.3s ease; }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
+
+        /* Accordion Styles for details/summary */
+        .accordion-block details > summary {
+            list-style: none; /* Remove default marker */
+            cursor: pointer;
+            font-weight: 600;
+            color: #374151; /* text-gray-700 */
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #eee;
+             display: flex;
+             justify-content: space-between;
+             align-items: center;
+             transition: background-color 0.2s;
+        }
+        .accordion-block details > summary::-webkit-details-marker { display: none; } /* Hide marker in Chrome/Safari */
+        .accordion-block details > summary:hover { background-color: #f9fafb; }
+        .accordion-block details > summary::after { /* Custom marker */
+            content: '+';
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #FF5E00;
+             transition: transform 0.2s;
+             margin-left: 1rem; /* Space marker from text */
+        }
+        .accordion-block details[open] > summary::after {
+            transform: rotate(45deg);
+        }
+        .accordion-block details > div { /* Content padding and style */
+            padding: 1rem 0.5rem;
+            border-bottom: 1px solid #eee;
+            color: #4b5563; /* text-gray-600 */
+            line-height: 1.6;
+        }
+        .accordion-block details:last-of-type > summary,
+        .accordion-block details:last-of-type > div {
+            border-bottom: none; /* Remove border on last item */
+        }
+        /* Styling for content inside details */
+        .policy-content h3 {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #1f2937; /* text-gray-800 */
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+         .policy-content h3:first-child {
+             margin-top: 0;
+         }
+        .policy-content p {
+            margin-bottom: 0.75rem;
+        }
+         .policy-content ul {
+             list-style: disc;
+             margin-left: 1.5rem;
+             margin-bottom: 0.75rem;
+         }
+
+         @media (max-width: 768px) {
+            nav { display: none !important; }
+            .hamburger { display: block; }
+            header { padding: 1rem 1.5rem !important; }
+            .support-block h2 i { margin-right: 0.5rem; font-size: 1.25rem; }
+            .support-block h2 { font-size: 1.25rem; }
+             .accordion-block details > summary { font-size: 0.95rem; }
+         }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <div id="mobileMenu" class="mobile-menu">
+        <a href="index.php#home" class="mobile-menu-link">Home</a>
+        <a href="index.php#features" class="mobile-menu-link">Features</a>
+        <a href="index.php#about" class="mobile-menu-link">About</a>
+        <a href="index.php#contact" class="mobile-menu-link">Contact</a>
+        <div class="mt-8">
+             <a href="login.php" class="border-2 border-black px-6 py-2 rounded-md hover:bg-[#FF5E00] hover:text-white transition duration-300 inline-block">LOGIN</a>
+            <a href="#" class="border-2 border-[#FF5E00] text-[#FF5E00] px-6 py-2 ml-3 rounded-md hover:bg-black hover:text-white transition duration-300 inline-block" id="mobileAlertsBtn">ALERTS</a>
+        </div>
+    </div>
+
+    <header>
+        <div class="w-full px-4 md:px-20 py-6 md:py-8 flex justify-between items-center bg-white shadow-sm">
+            <div class="text-xl sm:text-3xl font-bold">
+                <a href="index.php">travel<span class="text-[#FF5E00]">buddy</span></a>
+            </div>
+
+            <div class="flex items-center space-x-4 md:space-x-8">
+                <nav class="hidden md:flex space-x-6 md:space-x-10 text-[16px] font-semibold text-gray-700">
+                    <a href="index.php#home" class="hover:text-[#FF5E00] transition duration-300">Home</a>
+                    <a href="index.php#features" class="hover:text-[#FF5E00] transition duration-300">Features</a>
+                    <a href="index.php#about" class="hover:text-[#FF5E00] transition duration-300">About</a>
+                    <a href="index.php#contact" class="hover:text-[#FF5E00] transition duration-300">Contact</a>
+                     </nav>
+                <div class="flex items-center header-buttons">
+                    <a href="login.php" class="border-2 border-black px-4 md:px-7 py-1 md:py-2 rounded-md hover:bg-[#FF5E00] hover:text-white transition duration-300">LOGIN</a>
+                    <a href="#" class="border-2 border-[#FF5E00] text-[#FF5E00] px-4 md:px-7 py-1 md:py-2 ml-2 md:ml-3 rounded-md hover:bg-black hover:text-white transition duration-300" id="alertsBtn">ALERTS</a>
+                </div>
+                 <div class="hamburger md:hidden">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto px-4 py-12 md:py-16">
+        <h1 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-10 md:mb-12">Support & Information</h1>
+
+        <div class="max-w-4xl mx-auto space-y-8">
+
+            <div class="bg-white p-6 md:p-8 rounded-lg shadow-md support-block transition transform hover:shadow-lg hover:-translate-y-1">
+                <h2 class="text-xl md:text-2xl font-semibold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-question-circle text-[#FF5E00] mr-3"></i>
+                    Frequently Asked Questions (FAQ)
+                </h2>
+                <div class="accordion-block text-sm text-gray-700 space-y-1">
+                    <details>
+                        <summary>How do I use the Voice-to-Voice translation?</summary>
+                        <div>
+                            Navigate to the dashboard or feature list, select "Voice to Voice Translation". Choose your source and target languages from the dropdown menus. Tap the "Start Speaking" or microphone button, speak clearly, and the app will provide the audio translation in the selected target language. Ensure your microphone permissions are enabled for the app.
+                        </div>
+                    </details>
+                    <details>
+                        <summary>How can I check my PNR status?</summary>
+                        <div>
+                            Go to the dedicated "PNR Status" page or feature (accessible from the dashboard or menu). Enter your 10-digit PNR number accurately in the provided field and click the "Check Status" or "Submit" button. The latest booking status, including seat confirmation, coach details, and charting status (if available), will be displayed.
+                        </div>
+                    </details>
+                    <details>
+                        <summary>Is my personal data safe with TravelBuddy?</summary>
+                        <div>
+                            Yes, we prioritize your data security. We collect minimal necessary data for app functionality and use encryption and standard security protocols to protect it. We do not sell your personal data to third parties. For complete details, please review our full Privacy Policy accessible below.
+                        </div>
+                    </details>
+                     <details>
+                        <summary>How accurate is the live train status?</summary>
+                        <div>
+                            The live train status is updated frequently based on real-time GPS tracking data and information sourced from railway authorities. While we aim for high accuracy, minor delays or discrepancies might occur due to network issues or sudden operational changes. It's a reliable guide, but always cross-verify with station announcements for critical, last-minute information.
+                        </div>
+                    </details>
+                     <details>
+                        <summary>What languages are supported for translation?</summary>
+                        <div>
+                            TravelBuddy supports translation between multiple major Indian and international languages. The exact list may be updated periodically. Please check the language selection dropdowns within the translation features (Voice-to-Voice, Voice-to-Text, Image-to-Text) for the currently supported languages.
+                        </div>
+                    </details>
+                     </div>
+            </div>
+
+            <div class="bg-white p-6 md:p-8 rounded-lg shadow-md support-block transition transform hover:shadow-lg hover:-translate-y-1">
+                 <details class="accordion-block text-sm text-gray-700">
+                     <summary class="text-xl md:text-2xl font-semibold text-gray-800 flex items-center !py-4 !border-b-0"> <i class="fas fa-shield-alt text-[#FF5E00] mr-3"></i>
+                         Privacy Policy
+                     </summary>
+                      <div class="policy-content pt-4"> <h3>1. Introduction</h3>
+                        <p>Welcome to TravelBuddy. We are committed to protecting your personal information and your right to privacy. If you have any questions or concerns about our policy, or our practices with regards to your personal information, please contact us.</p>
+
+                        <h3>2. Information We Collect</h3>
+                        <p>We collect personal information that you voluntarily provide to us when registering at the App, expressing an interest in obtaining information about us or our products and services, when participating in activities on the App or otherwise contacting us.</p>
+                        <p>The personal information that we collect depends on the context of your interactions with us and the App, the choices you make and the products and features you use. The personal information we collect can include the following:</p>
+                        <ul>
+                            <li>Name and Contact Data (e.g., email address, phone number)</li>
+                            <li>Credentials (e.g., passwords, password hints for account recovery)</li>
+                            <li>Usage Data (e.g., information about how you use the app, feature usage)</li>
+                            <li>Location Data (only if you enable location services for features like station alerts)</li>
+                            <li>Voice and Image Data (only when using translation features, processed temporarily)</li>
+                        </ul>
+
+                        <h3>3. How We Use Your Information</h3>
+                        <p>We use personal information collected via our App for a variety of business purposes described below...</p>
+                         <ul>
+                             <li>To facilitate account creation and logon process.</li>
+                             <li>To provide and improve our services (translation, alerts, etc.).</li>
+                             <li>To respond to user inquiries and offer support.</li>
+                             <li>To send administrative information to you.</li>
+                             <li>To protect our Services (e.g., for fraud monitoring and prevention).</li>
+                         </ul>
+
+                         <h3>4. Will Your Information Be Shared?</h3>
+                        <p>We only share information with your consent, to comply with laws, to provide you with services, to protect your rights, or to fulfill business obligations. We do not sell your personal data.</p>
+
+                         <h3>5. Data Security</h3>
+                         <p>We have implemented appropriate technical and organizational security measures designed to protect the security of any personal information we process...</p>
+
+                         <h3>6. Your Privacy Rights</h3>
+                         <p>Depending on your location, you may have rights regarding your personal information, such as the right to access, correct, or delete your data...</p>
+
+                         <h3>7. Updates To This Policy</h3>
+                         <p>We may update this privacy policy from time to time. The updated version will be indicated by an updated "Revised" date...</p>
+                         <p><em>Last Updated: [Insert Date]</em></p>
+                         </div>
+                 </details>
+            </div>
+
+             <div class="bg-white p-6 md:p-8 rounded-lg shadow-md support-block transition transform hover:shadow-lg hover:-translate-y-1">
+                 <details class="accordion-block text-sm text-gray-700">
+                      <summary class="text-xl md:text-2xl font-semibold text-gray-800 flex items-center !py-4 !border-b-0"> <i class="fas fa-file-contract text-[#FF5E00] mr-3"></i>
+                        Terms and Services
+                     </summary>
+                      <div class="policy-content pt-4"> <h3>1. Acceptance of Terms</h3>
+                        <p>By downloading, accessing, or using the TravelBuddy mobile application ("App") or website ("Site"), you agree to comply with and be bound by these Terms and Services ("Terms"). If you do not agree to these Terms, please do not use the App or Site.</p>
+
+                         <h3>2. Description of Service</h3>
+                        <p>TravelBuddy provides users with features related to railway travel, including but not limited to language translation (voice, text, image), PNR status checking, live train status tracking, station alerts, and travel information ("Services").</p>
+
+                         <h3>3. User Accounts</h3>
+                        <p>You may need to register for an account to access certain features. You agree to provide accurate information and keep your account credentials confidential. You are responsible for all activities under your account.</p>
+
+                         <h3>4. Use Restrictions</h3>
+                        <p>You agree not to use the Services for any unlawful purpose or in any way that could harm the Service or impair anyone else's use...</p>
+                         <ul>
+                            <li>Do not attempt to reverse engineer the App.</li>
+                            <li>Do not misuse translation features for illegal or harmful content.</li>
+                            <li>Do not overload our servers.</li>
+                         </ul>
+
+                         <h3>5. Service Availability and Accuracy</h3>
+                        <p>While we strive to provide accurate and timely information (like train status and translations), the Services are provided "as is". We do not guarantee accuracy, completeness, or reliability, as data often relies on third-party sources (e.g., railway authorities). Use information as a guide and verify critical details independently.</p>
+
+                         <h3>6. Intellectual Property</h3>
+                        <p>The App, Site, and their original content, features, and functionality are owned by TravelBuddy and are protected by international copyright, trademark, and other intellectual property laws.</p>
+
+                         <h3>7. Limitation of Liability</h3>
+                        <p>To the maximum extent permitted by law, TravelBuddy shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your access to or use of, or inability to access or use, the Services...</p>
+
+                         <h3>8. Modifications to Terms</h3>
+                        <p>We reserve the right to modify these Terms at any time. We will notify users of significant changes. Continued use of the Service after changes constitutes acceptance of the new Terms.</p>
+
+                         <h3>9. Governing Law</h3>
+                        <p>These Terms shall be governed by the laws of [Your Jurisdiction/Country, e.g., India], without regard to its conflict of law provisions.</p>
+                         <p><em>Last Updated: [Insert Date]</em></p>
+                         </div>
+                 </details>
+            </div>
+
+        </div>
+    </main>
+
+    <div class="relative h-[120px] w-full overflow-hidden mt-auto"> <div class="wave wave1 absolute bottom-0 left-0 w-full h-[100px] z-[1000] opacity-100" style="background: url('./assets/images/orangedark.png') repeat-x; background-size: 1000px 100px;"></div>
+      <div class="wave wave2 absolute bottom-[10px] left-0 w-full h-[100px] z-[999] opacity-50" style="background: url('./assets/images/orangedark.png') repeat-x; background-size: 1000px 100px;"></div>
+      <div class="wave wave3 absolute bottom-[15px] left-0 w-full h-[100px] z-[1000] opacity-20" style="background: url('./assets/images/orangedark.png') repeat-x; background-size: 1000px 100px;"></div>
+      <div class="wave wave4 absolute bottom-[20px] left-0 w-full h-[100px] z-[999] opacity-70" style="background: url('./assets/images/orangedark.png') repeat-x; background-size: 1000px 100px;"></div>
+    </div>
+    <footer class="relative bg-[#FF5E00] text-white overflow-hidden">
+      <div class="container mx-auto px-6 pt-24 pb-12 relative z-20">
+        <div class="flex flex-col md:flex-row justify-between items-start">
+          <div class="mb-8 md:mb-0">
+            <div class="text-3xl font-bold mb-4">
+              travel<span class="text-white">buddy</span>
+            </div>
+            <p class="text-white/80 text-sm max-w-xs">
+              Your smart travel companion for every journey. Making railway travel seamless with real-time assistance.
+            </p>
+          </div>
+           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 footer-grid">
+              <div>
+                 <h3 class="font-bold text-lg mb-4">Quick Links</h3>
+                 <ul class="space-y-2">
+                    <li><a href="index.html#home" class="text-white/80 hover:text-white transition">Home</a></li>
+                    <li><a href="index.html#features" class="text-white/80 hover:text-white transition">Features</a></li>
+                    <li><a href="index.html#about" class="text-white/80 hover:text-white transition">About Us</a></li>
+                    <li><a href="index.html#contact" class="text-white/80 hover:text-white transition">Contact</a></li>
+                    </ul>
+              </div>
+              <div>
+                 <h3 class="font-bold text-lg mb-4">Support</h3>
+                 <ul class="space-y-2">
+                    <li><a href="support.html#faq" class="text-white/80 hover:text-white transition">FAQ</a></li>
+                    <li><a href="support.html#privacy" class="text-white/80 hover:text-white transition">Privacy Policy</a></li>
+                    <li><a href="support.html#terms" class="text-white/80 hover:text-white transition">Terms of Service</a></li>
+                     </ul>
+              </div>
+              <div>
+                 <h3 class="font-bold text-lg mb-4">Connect</h3>
+                 <div class="flex space-x-4">
+                    <a href="#" class="text-white/80 hover:text-white transition transform hover:scale-125">
+                       <ion-icon name="logo-facebook" class="text-2xl"></ion-icon>
+                    </a>
+                    <a href="#" class="text-white/80 hover:text-white transition transform hover:scale-125">
+                       <ion-icon name="logo-twitter" class="text-2xl"></ion-icon>
+                    </a>
+                    <a href="#" class="text-white/80 hover:text-white transition transform hover:scale-125">
+                       <ion-icon name="logo-instagram" class="text-2xl"></ion-icon>
+                    </a>
+                    <a href="#" class="text-white/80 hover:text-white transition transform hover:scale-125">
+                       <ion-icon name="logo-linkedin" class="text-2xl"></ion-icon>
+                    </a>
+                  </div>
+              </div>
+            </div>
+        </div>
+         <div class="border-t border-white/20 mt-12 pt-6 text-center md:text-left">
+           <p class="text-white/60 text-sm px-6 pb-6">
+             &copy; 2023 Travelbuddy. All rights reserved.
+           </p>
+         </div>
+      </div>
+    </footer>
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <script>
+        // Mobile Menu Toggle (Copied from index.html)
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            if (hamburger && mobileMenu) {
+                hamburger.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    mobileMenu.classList.toggle('active');
+                    document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+                });
+
+                const menuLinks = document.querySelectorAll('.mobile-menu-link');
+                menuLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        hamburger.classList.remove('active');
+                        mobileMenu.classList.remove('active');
+                        document.body.style.overflow = '';
+                    });
+                });
+            }
+        });
+
+        // --- Optional: Initialize ScrollReveal for the blocks ---
+         document.addEventListener('DOMContentLoaded', function() {
+             if (typeof ScrollReveal !== 'undefined') {
+                 ScrollReveal().reveal('.support-block', {
+                    delay: 150,
+                    distance: '30px',
+                    origin: 'bottom',
+                    easing: 'ease-in-out',
+                    duration: 600,
+                    interval: 100 // Stagger animation for each block
+                 });
+                 ScrollReveal().reveal('h1', { // Animate main title
+                    delay: 100,
+                    distance: '20px',
+                    origin: 'top',
+                    easing: 'ease-in-out',
+                    duration: 500
+                 });
+             }
+             else {
+                 console.warn("ScrollReveal is not defined. Animations will not run.");
+             }
+         });
+
+        // Add other necessary JS from index.html if needed (e.g., preloader, alerts popup)
+
+    </script>
+</body>
+</html>
